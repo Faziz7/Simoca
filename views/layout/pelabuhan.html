@@ -1,0 +1,191 @@
+<div class="right_col" role="main">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 ">
+			<!-- <button class="btn btn-success" onclick="showAddReference()">Tambah Referensi</button> -->
+			<table class="table table-striped" id="mytable">
+				<thead>
+					<tr>
+						<th>Nama Pelabuhan</th>
+						<th>Kode Pelabuhan</th>
+						<th>Nama Kabupaten Kota</th>
+						<th>Langitude</th>
+						<th>Longitude</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				{{#if isAdmin }}
+				<tbody>
+					{{#each results}}
+					<tr>
+			          <td>{{ nama_pelabuhan }}</td>
+			          <td>{{ kd_pelabuhan }}</td>
+			          <td>{{ nama_kabkota }}</td>
+			          <td>{{ longitude }}</td>
+			          <td>{{ latitude }}</td>
+			          <td>
+			            <a href="javascript:void(0);" class="btn btn-sm btn-warning" onclick ="showUpdatePelabuhan('{{ id_pelabuhan }}')">Edit Data Pelabuhan</a>
+			            <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick ="showDeletePelabuhan('{{ id_pelabuhan }}')">Hapus Data Pelabuhan</a>
+			            <a href="javascript:void(0);" class="btn btn-sm btn-info" onclick ="showDetailPelabuhan('{{ id_pelabuhan }}')">Lihat Data Pelabuhan</a>
+			          </td>
+			        </tr>
+					{{/each}}
+				</tbody>
+				{{/if}}
+				{{#if isUser }}
+				<tbody>
+					{{#each results}}
+					<tr>
+			          <td>{{ nama_pelabuhan }}</td>
+			          <td>{{ kd_pelabuhan }}</td>
+			          <td>{{ nama_kabkota }}</td>
+			          <td>{{ longitude }}</td>
+			          <td>{{ latitude }}</td>
+			          <td>
+			            <a href="javascript:void(0);" class="btn btn-sm btn-info" onclick ="showDetailPelabuhan('{{ id_pelabuhan }}')">Lihat Data Pelabuhan</a>
+			          </td>
+			        </tr>
+					{{/each}}
+				</tbody>
+				{{/if}}
+			</table>
+		</div>
+	</div>
+</div>
+
+<form action="/reference/pelabuhan/update_reference" method="post">
+	<div class="modal fade" id="EditModalPelabuhan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit Data Referensi</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Longitude</label>
+						<input type="text" name="longitude" class="form-control" placeholder="Longitude" readonly>
+					</div>
+					<div class="form-group">
+						<label>Latitde</label>
+						<input type="text" name="latitude" class="form-control" placeholder="Latitude" readonly>
+					</div>
+					<div class="form-group">
+						<label>Kode Pelabuhan</label>
+						<input type="text" name="kd_pelabuhan" class="form-control" placeholder="Kode Pelabuhan" readonly>
+					</div>
+					<div class="form-group">
+						<label>Nama Pelabuhan</label>
+						<input type="text" name="nama_pelabuhan" class="form-control" placeholder="Nama Pelabuhan" readonly>
+					</div>
+					<div class="form-group">
+						<label>Alamat Kab/Kota</label>
+						<input type="text" name="nama_kabkota" class="form-control" placeholder="Nama Kabupaten/Kota" readonly>
+					</div>
+					<div class="form-group">
+						<label>Alamat Pelabuhan</label>
+						<input type="text" name="alamat_pelabuhan" class="form-control" placeholder="Alamat" required>
+					</div>
+					<div class="form-group">
+						<label>Telepon</label>
+						<input type="text" name="telp_pelabuhan" class="form-control" placeholder="Telepon" required>
+					</div>
+					<div class="form-group">
+						<label>Website</label>
+						<input type="text" name="website" class="form-control" placeholder="Website" required>
+					</div>
+					<div class="form-group">
+						<label>Fasilitas</label>
+						<input type="text" name="fasilitas" class="form-control" placeholder="Fasilitas" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="id_pelabuhan">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!-- Delete Product Modal-->
+<form id="add-row-form" action="/reference/pelabuhan/delete_reference" method="post">
+	<div class="modal fade" id="DeleteModalPelabuhan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">Hapus Data Referensi Pelabuhan</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body">
+					<strong>Apakah anda yakin untuk menghapus data ini?</strong>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="id_pelabuhan">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-success">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!-- Modal Detail -->
+<form action="#" method="post">
+	<div class="modal fade" id="DetailModalPelabuhan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit Data Referensi</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Longitude</label>
+						<input type="text" name="longitude" class="form-control" placeholder="Longitude" readonly>
+					</div>
+					<div class="form-group">
+						<label>Latitde</label>
+						<input type="text" name="latitude" class="form-control" placeholder="Latitude" readonly>
+					</div>
+					<div class="form-group">
+						<label>Kode Pelabuhan</label>
+						<input type="text" name="kd_pelabuhan" class="form-control" placeholder="Kode Pelabuhan" readonly>
+					</div>
+					<div class="form-group">
+						<label>Nama Pelabuhan</label>
+						<input type="text" name="nama_pelabuhan" class="form-control" placeholder="Nama Pelabuhan" readonly>
+					</div>
+					<div class="form-group">
+						<label>Alamat Kab/Kota</label>
+						<input type="text" name="nama_kabkota" class="form-control" placeholder="Nama Kabupaten/Kota" readonly>
+					</div>
+					<div class="form-group">
+						<label>Alamat Pelabuhan</label>
+						<input type="text" name="alamat_pelabuhan" class="form-control" placeholder="Alamat" readonly>
+					</div>
+					<div class="form-group">
+						<label>Telepon</label>
+						<input type="text" name="telp_pelabuhan" class="form-control" placeholder="Telepon" readonly>
+					</div>
+					<div class="form-group">
+						<label>Website</label>
+						<input type="text" name="website" class="form-control" placeholder="Website" readonly>
+					</div>
+					<div class="form-group">
+						<label>Fasilitas</label>
+						<input type="text" name="fasilitas" class="form-control" placeholder="Fasilitas" readonly>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="id_pelabuhan">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

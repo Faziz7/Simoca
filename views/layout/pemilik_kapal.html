@@ -1,0 +1,146 @@
+<div class="right_col" role="main">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 ">
+			{{#if isUser }}
+			<button class="btn btn-success" onclick="showAddReferencePemilikKapal()">Tambah Data Kapal</button>
+			{{/if}}
+			<table class="table table-striped" id="mytable">
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>Nama Kapal</th>
+						<th>MMSI Kapal</th>
+						<th>Nama Penanggung Jawab</th>
+						<th>Contact</th>
+						<th>Status</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				{{#if isAdmin }}
+				<tbody>
+					{{#each results}}
+					<tr>
+					  <td>{{ username }}</td>
+			          <td>{{ vessel_name }}</td>
+			          <td>{{ mmsi }}</td>
+			          <td>{{ nama_pj }}</td>
+			          <td>{{ email }}</td>
+			          <td>{{ status }}</td>
+			          <td>
+
+			            <!-- <a href="javascript:void(0);" class="btn btn-sm btn-warning" onclick ="showUpdateReferencePemilikKapal('{{ id_pemilik_kapal }}')">Edit Data Pemilik</a> -->
+			            <a href="javascript:void(0);" class="btn btn-sm btn-secondary" onclick ="showUpdateStatus('{{ id_pemilik_kapal }}')">Ubah Status</a>
+			            <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick ="showDeleteReferencePemilikKapal('{{ id_pemilik_kapal }}')">Hapus Data Pemilik</a>
+			          </td>
+			        </tr>
+					{{/each}}
+				</tbody>
+				 {{/if}}
+				 {{#if isUser }}
+				 <tbody>
+					{{#each results}}
+					<tr>
+					  <td>{{ username }}</td>
+			          <td>{{ vessel_name }}</td>
+			          <td>{{ mmsi }}</td>
+			          <td>{{ nama_pj }}</td>
+			          <td>{{ email }}</td>
+			          <td>{{ status }}</td>
+			          <td>
+
+			            <!-- <a href="javascript:void(0);" class="btn btn-sm btn-warning" onclick ="showUpdateReferencePemilikKapal('{{ id_pemilik_kapal }}')">Edit Data Pemilik</a> -->
+			            <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick ="showDeleteReferencePemilikKapal('{{ id_pemilik_kapal }}')">Hapus Data Pemilik</a>
+			          </td>
+			        </tr>
+					{{/each}}
+				</tbody>
+				 {{/if}}
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- Add New Product Modal-->
+<form action="/reference/pemilik_kapal/add_reference" method="post">
+	<div class="modal fade" id="AddModalPemilik" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Tambah Data Pemilik Kapal</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>MMSI</label>
+						<input type="text" name="mmsi" class="form-control" placeholder="MMSI Kapal" required>
+						<label>Nomor Tanda Daftar</label>
+						<input type="text" name="no_tanda_daftar" class="form-control" placeholder="Nomor Tanda Daftar" required>
+						<label>Nomor Akta Kapal</label>
+						<input type="text" name="no_akta" class="form-control" placeholder="Nomor Akta Kapal" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!-- Delete Product Modal-->
+<form id="add-row-form" action="/reference/pemilik_kapal/delete_reference" method="post">
+	<div class="modal fade" id="DeleteModalPemilik" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<input type="hidden" name="id_pemilik_kapal">
+					<h5 class="modal-title" id="myModalLabel">Hapus Data Pemilik Kapal</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body">
+					<strong>Apakah anda yakin untuk menghapus data ini?</strong>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-success">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+<!-- Delete Product Modal-->
+<form action="/reference/pemilik_kapal/updateStatusPemilik" method="post">
+	<div class="modal fade" id="UpdateStatusPemilik" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Persetujuan Data Pemilik Kapal</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 ">Tujuan Kapal</label>
+						<div class="col-md-9 col-sm-9 ">
+							<select class="form-control select2" id ="status" name ="status">
+							  <option value="01">Disetujui</option>
+							  <option value="02">Ditolak</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="id_pemilik_kapal">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

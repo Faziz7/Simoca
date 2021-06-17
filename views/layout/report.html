@@ -1,0 +1,71 @@
+<div class="right_col" role="main">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 ">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Form Report <small>- Digunakan untuk mencetak laporan yang diinginkan</small></h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<br />
+					<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+						<div class="form-group row">
+							<label class="control-label col-md-3 col-sm-3 ">Jenis Laporan</label>
+							<div class="col-md-9 col-sm-9 ">
+								<select class="form-control select2" id ="type_data">
+									<option value ="01">Data Detail Kapal</option>
+									<option value ="02">Data Sepesifikasi Dimensi Kapal</option>
+									<option value ="03">Data Sepesifikasi Mesin Kapal</option>
+									<option value ="04">Data Kordinat Kapal</option>
+									<option value ="05">Data Kapal Pelabuhan Terakhir Disinggahi</option>
+									<option value ="06">Data Kapal Pelabuhan Terdekat Radius 10KM</option>
+									<option value ="07">Data Kepemilikan Kapal</option>
+									<option value ="08">Data Tujuan Kapal</option>
+									<option value ="09">Data Pelabuhan</option>
+									<option value ="10">Data Waktu Pelaporan AIS Kapal dan Perekaman/Update Data</option>
+								</select>
+							</div>
+						</div>
+						<div class="ln_solid"></div>
+						<div class="item form-group">
+							<div class="col-md-6 col-sm-6 offset-md-3">
+								<button class="btn btn-success"  type="button" id ="btnGenerateKapal">Generate Laporan</button>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="module">
+	$('#btnGenerateKapal').click(function (){
+		var search = $('#type_data').val();
+		showNotif('OK', 'Laporan berhasil dibuat');
+		window.open('/report/generate_laporan2/'+search)
+        // if(search.trim() != ""){
+        // 	$.ajax({
+        // 			url: '/report/generate_laporan2/'+search,
+	       //  		type: 'GET',
+	       //  		timeout: 60000,
+	       //  		// contentType: "application/json; charset=utf-8",
+	       //  		// dataType: "json",
+	       //  		// data : JSON.stringify({type_data : search}),
+        // 			success: function (data) {
+			     //        // if(data.status == '200'){
+			            	
+			     //        // }else{
+			     //        // 	showNotif('ER', 'Laporan gagal dibuat');
+			     //        // }
+
+			            
+        // 			},
+        // 			error: function (xhr, ajaxOptions, thrownError) {
+        // 				showNotif('ER', xhr.status +'\n'+ thrownError);
+        // 			}
+
+        // 		});
+        // }
+	});
+</script>
